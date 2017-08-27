@@ -3,10 +3,20 @@ import './App.css';
 
 
 class App extends Component{
+
+  getBoxOne(number){
+    return(
+      <div>
+        <h2>{"Hola Mundo yo soy la cajita # " + number}</h2>
+      </div>
+    );
+  }
+
   render(){
     return (
-      <div className="App">
-        <p className="App-text">Hola Mundo!</p>
+      <div>
+        {this.getBoxOne(1)}
+        {this.getBoxOne(2)}
       </div>
     );
   }

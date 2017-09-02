@@ -2,41 +2,44 @@ import React, {  Component} from 'react';
 import './App.css';
 
 /*Componentes*/
-import Image from './components/Image';
-import Input from './components/Input';
+import Children from './components/Children';
 
 class App extends Component {
 
-  constructor(){
-    super();
-    this.state = {
-      selectValue : "Mexico",
-      legend: "Pais seleccionado: Mexico"
-    }
-    this.onChange = this.onChange.bind(this);
-  }
+constructor(){
+  super();
+  this.comunicaHijo = this.comunicaHijo.bind(this);
 
-  onChange(e){
-    this.setState({
-      selectValue: e.target.value,
-      legend: "Pais seleccionado: ".concat(e.target.value)
-    });
-    console.log(e.target.value);
-
+  this.state={
+    inputChildValue : '10'
   }
+}
+
+comunicaHijo(e){
+  console.log(e);
+
+  //this.refs.children.escribeHola();
+
+  //enviarlo como propiedades
+  this.setState({inputChildValue:"20"});
+
+
+}
+
+muestraAlerta(e, number){
+  alert("El evento " + e + "el number: " + number );
+}
+
 
   render() {
     return (
        <div>
-        <select
-        onChange={this.onChange}
-        value={this.state.selectValue}>
-          <option value="Mexico">Mexico</option>
-          <option value="EE UU">EE UU</option>
-          <option value="Chile">Chile</option>
-          <option value="Argentina">Argentina</option>
-        </select>
-        <label className="App-legend">{this.state.legend}</label>
+          <button onClick={this.comunicaHijo}>Comunica al hijo</button>
+          <Children
+            ref="children"
+            inputValue={this.state.inputChildValue}
+            muestraAlerta={this.muestraAlerta}
+            />
       </div>
     );
   }

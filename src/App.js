@@ -3,43 +3,36 @@ import './App.css';
 
 /*Componentes*/
 import Children from './components/Children';
+import Form from './components/Form';
+
+//PubSub
+import PubSub from 'pubsub-js'
+
+
 
 class App extends Component {
 
-constructor(){
-  super();
-  this.comunicaHijo = this.comunicaHijo.bind(this);
-
-  this.state={
-    inputChildValue : '10'
+  constructor(){
+    super();
+    this.onClick = this.onClick.bind(this);
   }
-}
 
-comunicaHijo(e){
-  console.log(e);
+  //cuando de click va a emitir un evento
+  //para emitir un evento
+  onClick(e){
 
-  //this.refs.children.escribeHola();
+    //Metodo propio q publica un evento generico
+    //se lanza y el componente q lo reciba lo accede
+    PubSub.publish('GLOBAL_EVENT', true);
 
-  //enviarlo como propiedades
-  this.setState({inputChildValue:"20"});
-
-
-}
-
-muestraAlerta(e, number){
-  alert("El evento " + e + "el number: " + number );
-}
-
+  }
 
   render() {
     return (
        <div>
-          <button onClick={this.comunicaHijo}>Comunica al hijo</button>
-          <Children
-            ref="children"
-            inputValue={this.state.inputChildValue}
-            muestraAlerta={this.muestraAlerta}
-            />
+          <h4>Componente 1</h4>
+          <button onClick={this.onClick}>Lanzar evento</button>
+          <Form />
       </div>
     );
   }
